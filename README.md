@@ -54,8 +54,8 @@
 | Register Page | Dashboard |
 |---------------|-----------|
 | ![login](https://github.com/user-attachments/assets/026dffef-4422-4231-80c3-e1e277cb9c6a) | ![dashboard](https://github.com/user-attachments/assets/157c977c-1bcb-4dfe-8583-364713ebbad6) |
-| ![register](![image](https://github.com/user-attachments/assets/3bc011f3-c460-4bce-8d13-c0abb2221af3)
-) |
+![image](https://github.com/user-attachments/assets/fa0d6442-b5db-42bb-b866-d4ee94aa2dc7)
+
 > 🔒 Only **authenticated users** can scrape reviews using the dashboard.  
 > 🛒 Scraped reviews from Flipkart are stored directly in the database using the logged-in user's JWT token.
 

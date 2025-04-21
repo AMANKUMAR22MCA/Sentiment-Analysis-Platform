@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 50px;
+      }
+      h1 {
+        color: #333;
+      }
+      button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Welcome to the Dashboard!</h1>
+    <p>You are successfully logged in.</p>
+    <button id="scrapeButton">Scrape Reviews</button>
+
+    <button id="logoutBtn">Logout</button>
+
+    
+
+    <script>
+      // Logout and clear token
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        localStorage.removeItem("access_token");
+        window.location.href = "login.html";
+      });
+
+      // Optional: check token on load
+      const token = localStorage.getItem("access_token");
+      if (!token) {
+        window.location.href = "login.html";
+      }
+
+      document
+        .getElementById("scrapeButton")
+        .addEventListener("click", async () => {
+          const token = localStorage.getItem("access_token");
+          alert("Scraping started...");
+          try {
+            const response = await fetch(
+              "http://localhost:8000/api/reviews/scrape/",
+              {
+                method: "POST",
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            );
+
+            const data = await response.json();
+            alert(`Scraping done! Total reviews: ${data.count}`);
+          } catch (err) {
+            alert("Error while scraping: " + err.message);
+          }
+        });
+    </script>
+  </body>
+</html>

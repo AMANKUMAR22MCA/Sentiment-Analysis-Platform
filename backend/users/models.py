@@ -1,0 +1,35 @@
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.db import models
+
+class UserManager(BaseUserManager):
+    def create_user(self, email, mobile, password=None, **extra_fields):
+        if not email:
+            raise ValueError('Users must have an email')
+        email = self.normalize_email(email)
+        user = self.model(email=email, mobile=mobile, **extra_fields)
+        user.set_password(password)
+        user.save()
+        return user
+
+    def create_superuser(self, email, mobile, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        return self.create_user(email, mobile, password, **extra_fields)
+
+class User(AbstractBaseUser, PermissionsMixin):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+    mobile = models.CharField(max_length=15)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    objects = UserManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['mobile']
+
+    def __str__(self):
+        return self.email

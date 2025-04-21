@@ -48,7 +48,13 @@
 | `/api/reviews/product/`        | GET    | Get list of unique product names            | ✅ Yes        |
 
 ---
+```
+⚠️ Note:
+The scraper folder is optional. The actual scraping logic is integrated into the reviews app through a custom /api/reviews/scrape/ endpoint.
+Once a user logs in and lands on the Dashboard, they can trigger the scraping process directly from the UI via scrapping button.
+This request uses the authenticated user's JWT token, fetches product reviews from Flipkart via Selenium, and stores them in the database.
 
+```
 ## 📸 Screenshots
 
 | Login/Register Page | Dashboard |
